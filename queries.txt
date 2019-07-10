@@ -1,0 +1,35 @@
+>>> from apps.users_app.models import *
+
+Create Three New Users:
+>>> Users.objects.create(first_name="Damian", last_name="Krebsbach", email_address="damian@email.com", age=34)
+>>> Users.objects.create(first_name="Lee", last_name="Morgan", email_address="lee@email.com", age=27)
+>>> Users.objects.create(first_name="Mary Ann", last_name="Kearney", email_address="maryann@email.com", age=34)
+
+Query: Retrieve all the users	
+>>> Users.objects.all() --output-->  <QuerySet [<Users object: Damian Krebsbach damian@email.com 34>, <Users object: Lee Morgan lee@email.com 27>, <Users object: Mary Ann Kearney maryann@email.com 34>]>
+
+Query: Retrieve the last user	
+>>> Users.objects.last() --output-->  <Users object: Mary Ann Kearney maryann@email.com 34>
+
+Query: Retrieve the first user
+>>> Users.objects.first() --output-->  <Users object: Damian Krebsbach damian@email.com 34>
+
+Query: Change the user with id=3 so their last name is Pancakes.	
+(create variable 'user_to_update'
+>>> user_to_update = Users.objects.get(id=3)
+>>> user_to_update.last_name = "Pancakes"
+>>> user_to_update.save()
+>>> Users.objects.get(id=3) --output--> <Users object: Mary Ann Pancakes maryann@email.com 34>
+
+Query: Delete the user with id=2 from the database
+(create variable 'user_to_delete'
+>>> user_to_delete = Users.objects.get(id=2)
+>>> user_to_delete.delete()
+>>> Users.objects.all()
+<QuerySet [<Users object: Damian Krebsbach damian@email.com 34>, <Users object: Mary Ann Pancakes maryann@email.com 34>]>
+
+BONUS Query: Get all the users, sorted by their first name in descending order
+(create variable 'users_to_sort'
+>>> users_to_sort = Users.objects.all()
+>>> users_to_sort.order_by("-first_name") --output--> (in descending order) <QuerySet [<Users object: Mary Ann Pancakes maryann@email.com 34>, <Users object: Damian Krebsbach damian@email.com 34>]>
+	
